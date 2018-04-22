@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Category.destroy_all
+
+name = Array.new
+name = ["財經類", "商業類", "技術類"]
+
+name.each do |name|
+  Category.create!(name: name)
+end
+
+puts Category.count
