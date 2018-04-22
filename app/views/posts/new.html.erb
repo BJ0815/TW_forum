@@ -11,20 +11,32 @@
     <%= f.file_field :photo %>
   </div>
   <div class="form-group">
-    <%= f.label "Who Can See" %>
-    <% @article_roles.to_a.each do |article_role| %>
-      <%= f.radio_button :article_role, article_role %>
-      <%= f.label article_role %>
-    <% end %>
+    <div class="form-check form-check-inline">Who Can See</div>
+
+    <div class="form-check form-check-inline">
+      <%= radio_button :post, :article_role, "all", { checked: true , class: "form-check-input"} %>
+      <%= label_tag 'All', nil, class: "form-check-label" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= radio_button :post, :article_role, "friend", class: "form-check-input" %>
+      <%= label_tag 'Friend', nil, class: "form-check-label" %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= radio_button :post, :article_role, "myself", class: "form-check-input" %>
+      <%= label_tag 'Myseld', nil, class: "form-check-label" %>
+    </div>
   </div>
   <div class="form-group">
-    <%= f.label "Category" %>
+    <div class="form-check form-check-inline">Category</div>
     <% Category.all.each do |category| %>
-      <%= f.check_box :category_id, {mutiple: true}, category.id, nil %>
-      <%= f.label category.name %>
+    <div class="form-check form-check-inline">
+      <%= f.check_box :category_id, {mutiple: true, class: "form-check-input"}, category.id, nil %>
+      <%= f.label category.name, class: "form-check-label" %>
+    </div>
     <% end %>
   </div>
   <div class="form-group">
+    <%= f.submit "Save Draft", class: "btn btn-warning" %>
     <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -7,24 +7,38 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @article_roles = [:All, :Friend, :Myself]
     @category = Category.all
   end
 
   def create
     @post = current_user.posts.new(post_params)
-    if @post.save
-      flash[:notice] = "successfully created"
-      redirect_to root_path
+    if params[:commit] == "Save Draft"
+      @post.state = "draft"
+      if @post.save
+        flash[:notice] = "成功儲存草稿"
+        redirect_to root_path
+      else
+        flash[:alert] = @post.errors.full_messages.to_sentence
+        render :new
+      end
     else
-      flash[:alert] = @post.errors.full_messages
-      render :new
+      @post.state = "public"
+      if @post.save
+        flash[:notice] = "成功發布"
+        redirect_to root_path
+      else
+        flash[:alert] = @post.errors.full_messages.to_sentence
+        render :new
+      end
     end
   end
+
+
 
   private 
 
   def post_params
     params.require(:post).permit(:title, :photo, :state, :article_role, :category_id, :description)
   end
+
 end
