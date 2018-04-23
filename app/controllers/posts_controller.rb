@@ -4,7 +4,18 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    case params[:order]
+    when "replies"
+      @posts = Post.all.order('replies_count DESC')
+    when "last_replies"
+      @posts = Post.all.includes(:replies).order("replies.created_at DESC")
+    when "views"
+      @posts = Post.all.order('views_count DESC')
+    else
+      @posts = Post.all
+    end
   end
+      
 
   def new
     @post = Post.new
