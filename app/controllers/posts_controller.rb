@@ -40,7 +40,7 @@ class PostsController < ApplicationController
     else
       @post.state = "public"
       if @post.save
-        flash[:notice] = "成功發布"
+        flash[:notice] = "成功發佈"
         redirect_to root_path
       else
         flash[:alert] = @post.errors.full_messages.to_sentence
@@ -65,6 +65,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @categories = Category.all
     if @post.update(post_params)
+      case params[:commit]
+      when "Save Draft"
+        @post.state = "draft"
+      when "Submit"
+        @post.state = "public"
+      end
+      @post.save!
       redirect_to post_path(@post), :notice => "Post更新完成"
     else
       flash[:alert] = @post.errors.full_messages.to_sentence
