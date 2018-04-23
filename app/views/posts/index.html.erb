@@ -1,4 +1,7 @@
 <h1>Posts#index</h1>
+<% @categories.each do |category| %>
+  <%= link_to "#{category.name}", posts_path(category: "#{category.id}") %>
+<% end %>
 
 <table class="table table-hover">
   <thead>

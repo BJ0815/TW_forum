@@ -4,9 +4,10 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    @categories = Category.all
     case params[:order]
     when "replies"
-      @posts = Post.all.order('replies_count DESC')
+      @posts = Post.all.includes(:replies).order('replies_count DESC')
     when "last_replies"
       @posts = Post.all.includes(:replies).order("replies.created_at DESC")
     when "views"
@@ -14,6 +15,7 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
+
   end
       
 
@@ -51,6 +53,23 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @reply = Reply.new
     @replies = @post.replies.all
+  end
+
+  def edit
+    @post = Post.find(params[:id])
+    @categories = Category.all
+    render :new
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    @categories = Category.all
+    if @post.update(post_params)
+      redirect_to post_path(@post), :notice => "Post更新完成"
+    else
+      flash[:alert] = @post.errors.full_messages.to_sentence
+      render :new
+    end
   end
 
   def destroy
