@@ -1,6 +1,10 @@
 <h1>Posts#index</h1>
 <p>Find me in app/views/posts/index.html.erb</p>
 <% @posts.each do |post| %>
-  <%= post.title %>
-  <%= post.description %>
+  <%= link_to post_path(post) do %>
+    [<%= post.replies_count %>]replies_count
+    [<%= post.views_count %>]views_count
+    <%= post.title %>
+    <%= post.description %>
+  <% end %>
 <% end %>

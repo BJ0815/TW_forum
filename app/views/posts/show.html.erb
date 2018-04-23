@@ -1,0 +1,16 @@
+<h1>post show page </h1>
+<%= @post.title %>
+
+<% @replies.each do |reply| %>
+  <%= reply.comment %>
+<% end %>
+
+<%= form_for [@post, @reply] do |f| %>
+  <div class="form-group">
+    <%= f.label :replies %>
+    <%= f.text_area :comment ,class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
