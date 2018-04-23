@@ -3,6 +3,7 @@
 
 <% @replies.each do |reply| %>
   <%= reply.comment %>
+  <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
   <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
 <% end %>
 
