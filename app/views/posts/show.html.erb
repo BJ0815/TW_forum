@@ -3,6 +3,7 @@
 
 <% @replies.each do |reply| %>
   <%= reply.comment %>
+  <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
 <% end %>
 
 <%= form_for [@post, @reply] do |f| %>
