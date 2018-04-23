@@ -1,10 +1,13 @@
 <h1>post show page </h1>
 <%= @post.title %>
+<%= link_to "刪除", post_path(@post), method: :delete, class: "btn btn-danger" if current_user == @post.user %>
 
 <% @replies.each do |reply| %>
   <%= reply.comment %>
-  <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
-  <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
+  <% if current_user == reply.user %>
+    <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
+    <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
+  <% end %>
 <% end %>
 
 <%= form_for [@post, @reply] do |f| %>

@@ -42,6 +42,14 @@ class PostsController < ApplicationController
     @replies = @post.replies.all
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    if current_user == @post.user
+      @post.destroy
+      redirect_to root_path, :notice => "成功刪除post"
+    end
+  end
+
 
 
   private 

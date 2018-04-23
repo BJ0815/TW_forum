@@ -10,7 +10,7 @@ class RepliesController < ApplicationController
   end
 
   def destroy
-    current_user.replies.where(id: params[:id]).delete_all
+    current_user.replies.where(id: params[:id]).destroy_all
     flash[:notice] = "成功刪除留言"
     redirect_back(fallback_location: root_path)
   end
