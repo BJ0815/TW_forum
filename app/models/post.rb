@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :user
   belongs_to :category
   has_many :replies, dependent: :destroy
+  has_many :collects, dependent: :destroy
 
   mount_uploader :photo, PhotoUploader
 

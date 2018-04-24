@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
+  before_action :find_post, except: [:index, :new, :create]
   after_action :view_count, only: :show
 
   def index
@@ -50,19 +51,16 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @reply = Reply.new
     @replies = @post.replies.all
   end
 
   def edit
-    @post = Post.find(params[:id])
     @categories = Category.all
     render :new
   end
 
   def update
-    @post = Post.find(params[:id])
     @categories = Category.all
     if @post.update(post_params)
       case params[:commit]
@@ -80,16 +78,25 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     if current_user == @post.user
       @post.destroy
       redirect_to root_path, :notice => "成功刪除post"
     end
   end
 
+  def collect
+    current_user.collects.create!(post: @post)
+  end
 
+  def uncollect
+    current_user.collects.where(post: @post).destroy_all
+  end
 
   private 
+
+  def find_post
+    @post = Post.find(params[:id])
+  end
 
   def post_params
     params.require(:post).permit(:title, :photo, :state, :article_role, :category_id, :description)
