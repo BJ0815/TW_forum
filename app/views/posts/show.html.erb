@@ -18,7 +18,7 @@
   <%= reply.comment %>
   <%= reply.user.email %>
 
-  <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post %>
+  <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post unless current_user == reply.user || !current_user.friends.include?(reply.user) %>
 
 
   <% if current_user == reply.user %>

@@ -21,12 +21,5 @@ class User < ApplicationRecord
   has_many :friend_requests, dependent: :destroy
   has_many :pending_friends, through: :friend_requests, source: :friend
   
-  # def friends
-  #   friends = self.friendships.where(relation: "friend")
-  # end
-
-  # def invites
-  #   invites = self.friendships.where(relation: "invited")
-  # end
-
+  
 end

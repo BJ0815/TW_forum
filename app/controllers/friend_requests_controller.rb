@@ -16,17 +16,21 @@ class FriendRequestsController < ApplicationController
 
   def update
     @friend_request.accept
-    head :no_content
+    flash[:notice] = "接受成為好友"
+    redirect_back(fallback_location: root_path)
+    # head :no_content
   end
 
   def destroy
     @friend_request.destroy
-    head :no_content
+    flash[:notice] = "拒絕成為好友"
+    redirect_back(fallback_location: root_path)
+    # head :no_content
   end
 
   private
 
   def set_friend_request
-    @friend_request = FriendRequest.find(params[:id])
+    @friend_request = FriendRequest.find_by(friend_id: params[:id])
   end
 end

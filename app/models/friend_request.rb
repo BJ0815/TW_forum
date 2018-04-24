@@ -15,10 +15,10 @@ class FriendRequest < ApplicationRecord
   private
 
   def not_self
-    errors.add(:friend, "can't be equal to user") if user == friend
+    errors[:friend] << "can't be equal to user" if user == friend
   end
 
   def not_friends
-    errors.add(:friend, "is already added") if user.friends.include?(friend)
+    errors[:friend] << "is already added" if user.friends.include?(friend)
   end
 end

@@ -56,5 +56,5 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'devise', '~> 4.2'
 gem 'carrierwave', '~> 1.0'
-
+gem 'ffaker', '~> 2.2'
 
