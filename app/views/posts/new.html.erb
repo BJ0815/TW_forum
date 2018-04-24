@@ -28,7 +28,7 @@
   </div>
   <div class="form-group">
     <div class="form-check form-check-inline">Category</div>
-    <% @categories.each do |category| %>
+    <% Category.all.each do |category| %>
     <div class="form-check form-check-inline">
       <%= f.check_box :category_id, {mutiple: true, class: "form-check-input"}, category.id, nil %>
       <%= f.label category.name, class: "form-check-label" %>

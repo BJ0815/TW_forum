@@ -9,11 +9,18 @@
     <%= link_to "collect", collect_post_path(@post),method: :post, remote: true, class: "btn btn-success"%>
   </div>
 <% end %>
-<%= link_to "編輯", edit_post_path(@post), class: "btn btn-primary"%>
-<%= link_to "刪除", post_path(@post), method: :delete, class: "btn btn-danger" if current_user == @post.user %>
+<% if current_user == @post.user %>
+  <%= link_to "編輯", edit_post_path(@post), class: "btn btn-primary"%>
+  <%= link_to "刪除", post_path(@post), method: :delete, class: "btn btn-danger" %>
+<% end %>
 
 <% @replies.each do |reply| %>
   <%= reply.comment %>
+  <%= reply.user.email %>
+
+  <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post %>
+
+
   <% if current_user == reply.user %>
     <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
     <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
@@ -29,3 +36,4 @@
     <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
+

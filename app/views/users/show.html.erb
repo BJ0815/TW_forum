@@ -25,6 +25,9 @@
   <li class="nav-item">
     <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">My Draft</a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="friend-tab" data-toggle="tab" href="#friend" role="tab" aria-controls="friend" aria-selected="false">My Friend</a>
+  </li>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -77,6 +80,27 @@
       </tr>
       <% end %>
     </table>
+  </div>
+  <div class="tab-pane fade" id="friend" role="tabpanel" aria-labelledby="friend-tab">
+    <div class="friend-block">
+      <% unless current_user.friends.blank? %>
+        <% current_user.friends.each do |friend| %>
+          <%= friend.email %>
 
+        <% end %>
+      <% end %>
+    </div>
+    <div class="outcoming-block">
+      <% @pending.each do |friend| %>
+        <%= friend.email %>
+      <% end %>
+    </div>
+    <div class="incoming-block">
+      <% @requests.each do |request| %>
+        <%= request.user.email %>
+        <%= link_to "accept", friend_request_path(current_user), method: :patch %>
+        <%= link_to "ignore", friend_request_path(current_user), method: :delete %>
+      <% end %>
+    </div>
   </div>
 </div>

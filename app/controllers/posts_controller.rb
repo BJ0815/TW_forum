@@ -22,7 +22,6 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @categories = Category.all
   end
 
   def create
@@ -33,7 +32,7 @@ class PostsController < ApplicationController
       @post.state = "draft"
       if @post.save
         flash[:notice] = "成功儲存草稿"
-        redirect_to root_path
+        redirect_to post_path(@post)
       else
         flash[:alert] = @post.errors.full_messages.to_sentence
         render :new
@@ -42,7 +41,7 @@ class PostsController < ApplicationController
       @post.state = "public"
       if @post.save
         flash[:notice] = "成功發佈"
-        redirect_to root_path
+        redirect_to post_path(@post)
       else
         flash[:alert] = @post.errors.full_messages.to_sentence
         render :new

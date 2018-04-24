@@ -1,14 +1,17 @@
 class UsersController < ApplicationController
+  before_action :set_user
+
   def show
-    @user = User.find(params[:id])
+    @friends = current_user.friends
+    # 好友邀請
+    @requests = FriendRequest.where(friend: current_user)
+    @pending = current_user.pending_friends
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to user_path(@user)
     else
@@ -17,7 +20,12 @@ class UsersController < ApplicationController
     end
   end
 
+
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:name, :content, :avatar, :avatar_cache)

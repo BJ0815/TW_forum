@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'users/show'
+  resources :friend_requests, only: [:create, :update, :destroy]
 
   devise_for :users
 
@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show, :edit, :update]
+  resources :users, only: [:show, :edit, :update] do
+    member do 
+      post :invite
+    end
+  end
 
 end

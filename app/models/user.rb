@@ -15,4 +15,18 @@ class User < ApplicationRecord
   has_many :collects, dependent: :destroy
   has_many :collected_posts, through: :collects, source: "post"
 
+  has_many :friendships, dependent: :destroy
+  has_many :friends, through: :friendships
+
+  has_many :friend_requests, dependent: :destroy
+  has_many :pending_friends, through: :friend_requests, source: :friend
+  
+  # def friends
+  #   friends = self.friendships.where(relation: "friend")
+  # end
+
+  # def invites
+  #   invites = self.friendships.where(relation: "invited")
+  # end
+
 end
