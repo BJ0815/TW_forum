@@ -1,106 +1,141 @@
-
-<div class="row">
-  <div class="col-md-4">
-    <%= image_tag @user.avatar, size: "200" %>
-    <h3><%= @user.name %></h3>
-  </div>
-  <div class="col-md-8">
-    <p><%= @user.content %></p>
-    <%= link_to "edit", edit_user_path(@user), class: "btn btn-primary" %>
-  </div>
-</div>
-
-
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My Post</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Comment</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="collect-tab" data-toggle="tab" href="#collect" role="tab" aria-controls="collect" aria-selected="false">My collect</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">My Draft</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="friend-tab" data-toggle="tab" href="#friend" role="tab" aria-controls="friend" aria-selected="false">My Friend</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-    <table class="table table-hover">
-      <% @user.public_posts.all.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.state %></td>
-        <td><%= post.created_at %></td>
-        <td><%= link_to "編輯", edit_post_path(post) %></td>
-        <td><%= link_to "刪除", post_path(post), method: :delete %></td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-    <div>
-      <% @user.replies.all.each do |reply| %>
-      <div class="col-12">
-        <%= reply.post.title %>
-        <%= reply.comment %>
-        <%= link_to "編輯", edit_post_reply_path(reply) %></td>
-        <%= link_to "刪除", post_reply_path(reply), method: :delete %></td>
+<section class="user-profile-page py-4">
+  <div class="profile-header py-4">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <%= image_tag @user.avatar, size: "200" %>
+        <h3><%= @user.name %></h3>
       </div>
-      <% end %>
+      <div class="col-md-8">
+        <p><%= @user.content %></p>
+        <div class="edit-btn">
+          <%= link_to "edit", edit_user_path(@user), class: "btn btn-primary" %>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="collect" role="tabpanel" aria-labelledby="collect-tab">
-    <table class="table table-hover">
-      <% @user.collected_posts.all.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.state %></td>
-        <td><%= post.created_at %></td>
-        <td><%= link_to "編輯", edit_post_path(post) %></td>
-        <td><%= link_to "刪除", post_path(post), method: :delete %></td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-    <table class="table table-hover">
-      <% @user.draft_posts.all.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.state %></td>
-        <td><%= post.created_at %></td>
-        <td><%= link_to "編輯", edit_post_path(post) %></td>
-        <td><%= link_to "刪除", post_path(post), method: :delete %></td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="tab-pane fade" id="friend" role="tabpanel" aria-labelledby="friend-tab">
-    <div class="friend-block">
-      <% unless current_user.friends.blank? %>
-        <% current_user.friends.each do |friend| %>
-          <%= friend.email %>
 
+  <div class="profile-content">
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">My Post</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">My Comment</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="collect-tab" data-toggle="tab" href="#collect" role="tab" aria-controls="collect" aria-selected="false">My collect</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">My Draft</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="friend-tab" data-toggle="tab" href="#friend" role="tab" aria-controls="friend" aria-selected="false">My Friend</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+        <table class="table table-hover">
+          <% @user.public_posts.all.each do |post| %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.state %></td>
+            <td><%= post.created_at %></td>
+            <% if current_user == post.user %>
+              <td><%= link_to "編輯", edit_post_path(post) %></td>
+              <td><%= link_to "刪除", post_path(post), method: :delete %></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <% @user.replies.all.each do |reply| %>
+        <div class="reply-info">
+          <h4><%= reply.post.title %></h4>
+          <div class="row">
+            <div class="col-md-8 block">
+              <p><%= reply.comment %></p>
+            </div>
+            <div class="col-md-4 mt-auto">
+              <% if current_user == reply.user %>
+                <%= link_to "編輯", edit_post_reply_path(reply) %></td>
+                <%= link_to "刪除", post_reply_path(reply), method: :delete %></td>
+              <% end %>
+            </div>
+          </div>
+        </div>
         <% end %>
-      <% end %>
-    </div>
-    <div class="outcoming-block pt-4">
-      <% @pending.each do |friend| %>
-        <%= friend.email %>
-      <% end %>
-    </div>
-    <div class="incoming-block">
-      <% @requests.each do |request| %>
-        <%= request.user.email %>
-        <%= link_to "accept", friend_request_path(current_user), method: :patch %>
-        <%= link_to "ignore", friend_request_path(current_user), method: :delete %>
-      <% end %>
+      </div>
+      <div class="tab-pane fade" id="collect" role="tabpanel" aria-labelledby="collect-tab">
+        <table class="table table-hover">
+          <% @user.collected_posts.all.each do |post| %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.state %></td>
+            <td><%= post.created_at %></td>
+            <% if current_user == post.user %>
+              <td><%= link_to "編輯", edit_post_path(post) %></td>
+              <td><%= link_to "刪除", post_path(post), method: :delete %></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <table class="table table-hover">
+          <% @user.draft_posts.all.each do |post| %>
+          <tr>
+            <td><%= post.title %></td>
+            <td><%= post.state %></td>
+            <td><%= post.created_at %></td>
+            <% if current_user == post.user %>
+              <td><%= link_to "編輯", edit_post_path(post) %></td>
+              <td><%= link_to "刪除", post_path(post), method: :delete %></td>
+            <% end %>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="tab-pane fade" id="friend" role="tabpanel" aria-labelledby="friend-tab">
+        <div class="outcoming-block pt-4">
+          <h5 class="text-center text-muted">Waiting for response</h5>
+          <% @pending.each do |friend| %>
+            <figure>
+              <%= image_tag friend.avatar, size: "120" %>
+            </figure>
+            <p><%= friend.email %></p>
+          <% end %>
+        </div>
+        <div class="incoming-block">
+          <div class="row">
+            <% @requests.each do |request| %>
+            <div class="col-md-2 incoming-info text-center">
+              <figure>
+                <%= image_tag request.user.avatar, size: "120" %>
+              </figure>
+              <p><%= request.user.name %></p>
+              <%= link_to "Accept", friend_request_path(current_user), method: :patch, class: "btn btn-success" %>
+              <%= link_to "Ignore", friend_request_path(current_user), method: :delete, class: "btn btn-danger" %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="friend-block">
+          <div class="row">
+            <% unless current_user.friends.blank? %>
+              <% current_user.friends.each do |friend| %>
+              <div class="col-md-2 text-center">
+                <figure>
+                  <%= image_tag friend.avatar, size: "120" %>
+                </figure>
+                <p><%= friend.name %></p>
+              </div>
+              <% end %>
+            <% end %>     
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 

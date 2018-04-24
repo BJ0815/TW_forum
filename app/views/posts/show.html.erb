@@ -1,39 +1,82 @@
-<h1>post show page </h1>
-<%= @post.title %>
-<% if current_user.collects.where(post: @post).exists? %>
-  <div id="collect-<%= @post.id %>">
-    <%= link_to "uncollect", uncollect_post_path(@post), remote: true, method: :post, class: "btn btn-primary"%>
+<section class="show-post-page">
+  <div class="show-post-header p-4">
+    <div class="d-flex justify-content-between">
+      <div class="header-title">
+        <h1><%= @post.title %></h1>
+      </div>
+      <div class="header-btn">
+        <% if current_user.collects.where(post: @post).exists? %>
+          <div id="collect-<%= @post.id %>">
+            <%= link_to "uncollect", uncollect_post_path(@post), remote: true, method: :post, class: "btn btn-primary"%>
+          </div>
+        <% else %>
+          <div id="collect-<%= @post.id %>">
+            <%= link_to "collect", collect_post_path(@post),method: :post, remote: true, class: "btn btn-success"%>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% else %>
-  <div id="collect-<%= @post.id %>">
-    <%= link_to "collect", collect_post_path(@post),method: :post, remote: true, class: "btn btn-success"%>
+  <div class="post-content p-3">
+    <div class="row">
+      <div class="col-md-3">
+        <figure>
+          <%= image_tag @post.user.avatar, size: "150" %>
+        </figure>
+        <p><%= @post.user.name %></p>
+        <%= link_to "add friend", friend_requests_path(friend_id: @post.user), method: :post unless current_user == @post.user || !current_user.friends.include?(@post.user) %>
+      </div>
+      <div class="col-md-9">
+        <figure>
+          <%= image_tag @post.photo, size: "400x250" %>
+        </figure>
+        <p><%= @post.description %></p>
+        <div class="edit-btn">
+          <% if current_user == @post.user %>
+            <%= link_to "編輯", edit_post_path(@post), class: "btn btn-primary"%>
+            <%= link_to "刪除", post_path(@post), method: :delete, class: "btn btn-danger" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
-<% if current_user == @post.user %>
-  <%= link_to "編輯", edit_post_path(@post), class: "btn btn-primary"%>
-  <%= link_to "刪除", post_path(@post), method: :delete, class: "btn btn-danger" %>
-<% end %>
+  
+  <div class="reply-block p-3">
+    <% @replies.each do |reply| %>
+    <div class="reply-content py-3">
+      <div class="row">
+        <div class="col-md-3 text-center">
+          <figure>
+            <%= image_tag reply.user.avatar, size: "150" %>
+          </figure>
+          <p><%= reply.user.name %></p>
+        </div>
+        <div class="col-md-9">
+          <%= reply.comment %>
 
-<% @replies.each do |reply| %>
-  <%= reply.comment %>
-  <%= reply.user.email %>
+          <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post unless current_user == reply.user || !current_user.friends.include?(reply.user) %>
 
-  <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post unless current_user == reply.user || !current_user.friends.include?(reply.user) %>
-
-
-  <% if current_user == reply.user %>
-    <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
-    <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
-  <% end %>
-<% end %>
-
-<%= form_for [@post, @reply] do |f| %>
-  <div class="form-group">
-    <%= f.label :replies %>
-    <%= f.text_area :comment ,class: "form-control" %>
+          <div class="edit-btn">
+            <% if current_user == reply.user %>
+              <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
+              <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
   </div>
-  <div class="form-group">
-    <%= f.submit class: "btn btn-primary" %>
+  
+  <div class="reply-form p-5">
+    <%= form_for [@post, @reply] do |f| %>
+      <div class="form-group">
+        <%= f.text_area :comment,placeholder: "add comment", resize: false, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</section>
 
