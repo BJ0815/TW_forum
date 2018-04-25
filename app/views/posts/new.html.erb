@@ -8,6 +8,7 @@
     </div>
     <div class="form-group">
       <%= f.file_field :photo %>
+      <%= image_tag @post.photo, size: "200" if @post.photo %>
     </div>
     <div class="form-group">
       <div class="form-check form-check-inline">Who Can See</div>

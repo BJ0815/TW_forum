@@ -1,0 +1,62 @@
+<section id="feed-page">
+  <div id="feed-header">
+    <div class="row justify-content-md-center align-items-center text-center">
+      <div class="col-3 user-count">
+        <h1>User</h1>
+        <div class="count-block">
+          <%= @users.count %>
+        </div>
+      </div>
+
+      <div class="col-3 post-count">
+        <h1>Post</h1>
+        <div class="count-block">
+          <%= @posts.count %>
+        </div>
+      </div>
+
+      <div class="col-3 reply-count">
+        <h1>Comment</h1>
+        <div class="count-block">
+          <%= @replies.count %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rank">
+    <div class="row justify-content-md-center">
+      <div class="col-4">
+        <div class="chatterbox">
+          <h2>ChatterBox</h2>
+          <div class="divider"></div>
+          <% @rank_users.each_with_index do |user, index| %>
+          <table>
+            <tr>
+              <th class="col"><%= index+1 %>.</th>
+              <th class="col"><%= user.name %></th>
+              <th class="col"><%= user.replies_count %></th>
+            </tr>
+          </table>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="popular-post">
+          <h2>Most Popular Post</h2>
+          <% @rank_posts.each_with_index do |post, index| %>
+          <table>
+            <tr>
+              <th><%= index+1 %>.</th>
+              <th><%= post.title %></th>
+              <th><%= post.created_at.strftime("%F") %></th>
+            </tr>
+          </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

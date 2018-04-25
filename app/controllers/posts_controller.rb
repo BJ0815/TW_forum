@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: :index
-  before_action :find_post, except: [:index, :new, :create]
+  before_action :find_post, except: [:index, :new, :create, :feed]
   after_action :view_count, only: :show
 
   def index
@@ -16,7 +16,14 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
+  end
 
+  def feed
+    @posts = Post.all
+    @users = User.all
+    @replies = Reply.all
+    @rank_users = User.all.order('replies_count DESC').limit(10)
+    @rank_posts = Post.all.order('replies_count DESC').limit(10)
   end
       
 

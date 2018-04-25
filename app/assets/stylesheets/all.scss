@@ -67,3 +67,20 @@
 }
 
 
+#feed-header > .row {
+  min-height: 200px;
+  background-color: #e0e0e0;
+
+  .count-block {
+    border: 1px solid #000;
+    background-color: #fff;
+    padding: 1em 2em;
+  }
+}
+
+.chatterbox table {
+  width: 100%;
+  max-width: 100%;
+  // text-align: center;
+}
+

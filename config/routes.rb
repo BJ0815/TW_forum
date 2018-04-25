@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       post :collect
       post :uncollect
     end
+
+    collection do
+      get :feed
+    end
   end
 
   resources :users, only: [:show, :edit, :update] do
