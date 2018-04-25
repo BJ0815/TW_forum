@@ -21,5 +21,8 @@ class User < ApplicationRecord
   has_many :friend_requests, dependent: :destroy
   has_many :pending_friends, through: :friend_requests, source: :friend
   
-  
+  def admin?
+    self.role == "admin"
+  end
+
 end

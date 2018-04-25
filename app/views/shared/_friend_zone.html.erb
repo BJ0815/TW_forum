@@ -1,0 +1,37 @@
+<div class="outcoming-block pt-4">
+  <h5 class="text-center text-muted">Waiting for response</h5>
+  <% object1.each do |friend| %>
+    <figure>
+      <%= image_tag friend.avatar, size: "120" %>
+    </figure>
+    <p><%= friend.email %></p>
+  <% end %>
+</div>
+<div class="incoming-block">
+  <div class="row">
+    <% object2.each do |request| %>
+    <div class="col-md-2 incoming-info text-center">
+      <figure>
+        <%= image_tag request.user.avatar, size: "120" %>
+      </figure>
+      <p><%= request.user.name %></p>
+      <%= link_to "Accept", friend_request_path(current_user), method: :patch, class: "btn btn-success" %>
+      <%= link_to "Ignore", friend_request_path(current_user), method: :delete, class: "btn btn-danger" %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<div class="friend-block">
+  <div class="row">
+    <% unless current_user.friends.blank? %>
+      <% current_user.friends.each do |friend| %>
+      <div class="col-md-2 text-center">
+        <figure>
+          <%= image_tag friend.avatar, size: "120" %>
+        </figure>
+        <p><%= friend.name %></p>
+      </div>
+      <% end %>
+    <% end %>     
+  </div>
+</div>

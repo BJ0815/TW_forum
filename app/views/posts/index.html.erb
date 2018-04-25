@@ -1,35 +1,42 @@
-<header>
-  <h1>Dojo Forum</h1>
-</header>
-<div class="content">
-  <div class="category-button-group p-3">
-    <%= link_to "All", posts_path, class: "btn btn-primary" %>
-    <% @categories.each do |category| %>
-      <%= link_to "#{category.name}", posts_path(category: "#{category.id}"), class: "btn btn-primary" %>
-    <% end %>
+<section id="index-page">
+  <div class="container">
+    <header>
+      <h1>Dojo Forum</h1>
+    </header>
+    <div class="content">
+      <div class="category-button-group p-3">
+        <%= link_to "All", posts_path, class: "btn btn-primary" %>
+        <% @categories.each do |category| %>
+          <%= link_to "#{category.name}", posts_path(category: "#{category.id}"), class: "btn btn-primary" %>
+        <% end %>
+      </div>
+
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"><%= link_to "replies count", posts_path(order: "replies") %></th>
+            <th scope="col">title</th>
+            <th scope="col"><%= link_to "last replies at", posts_path(order: "last_replies") %></th>
+            <th scope="col"><%= link_to "viewed count", posts_path(order: "views") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @posts.each do |post| %>
+            <% if article_role(post) %>
+            <tr data-link="<%= post_path(post)%>">
+              <td>[<%= post.replies_count %>]</td>
+              <td><%= post.title %></td>
+              <td><%= time_tag post.replies.last.created_at if post.replies.present? %></td>
+              <td>[<%= post.views_count %>]</td>
+            </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col"><%= link_to "replies count", posts_path(order: "replies") %></th>
-        <th scope="col">title</th>
-        <th scope="col"><%= link_to "last replies at", posts_path(order: "last_replies") %></th>
-        <th scope="col"><%= link_to "viewed count", posts_path(order: "views") %></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @posts.each do |post| %>
-        <tr data-link="<%= post_path(post)%>">
-          <td>[<%= post.replies_count %>]</td>
-          <td><%= post.title %></td>
-          <td><%= time_tag post.replies.last.created_at if post.replies.present? %></td>
-          <td>[<%= post.views_count %>]</td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+</section>
 
 <script>
   // 用jquery 實作點擊事件

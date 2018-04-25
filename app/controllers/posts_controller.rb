@@ -4,17 +4,17 @@ class PostsController < ApplicationController
   after_action :view_count, only: :show
 
   def index
-    @posts = Post.all
+    @posts = Post.where(state: "public")
     @categories = Category.all
     case params[:order]
     when "replies"
-      @posts = Post.all.includes(:replies).order('replies_count DESC')
+      @posts = Post.where(state: "public").includes(:replies).order('replies_count DESC')
     when "last_replies"
-      @posts = Post.all.includes(:replies).order("replies.created_at DESC")
+      @posts = Post.where(state: "public").includes(:replies).order("replies.created_at DESC")
     when "views"
-      @posts = Post.all.order('views_count DESC')
+      @posts = Post.where(state: "public").order('views_count DESC')
     else
-      @posts = Post.all
+      @posts = Post.where(state: "public")
     end
   end
 
