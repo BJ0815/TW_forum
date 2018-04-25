@@ -15,3 +15,10 @@ name.each do |name|
 end
 
 puts Category.count
+
+User.create!(
+  name: "manager",
+  email: "admin@example.co",
+  password: "admin123",
+  role: "admin",
+  )

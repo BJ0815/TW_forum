@@ -81,6 +81,45 @@
 .chatterbox table {
   width: 100%;
   max-width: 100%;
-  // text-align: center;
 }
 
+
+// admin category
+
+#admin {
+  padding: 3em 2em;
+  
+  .nav {
+    margin-bottom: 1em;
+    h1 {
+      margin-right: 1em;
+      a {
+        text-decoration: none;
+      }
+    }
+
+    .active {
+      padding-bottom: 0.5em;
+      border-bottom: 2px solid #e0e0e0;
+    }
+  }
+
+  .create-bar {
+    .form-group {
+      display: inline-block;
+      .form-block {
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      }
+    }
+  }
+
+
+}
