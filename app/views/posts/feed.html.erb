@@ -24,35 +24,38 @@
     </div>
   </div>
 
+
   <div id="rank">
-    <div class="row justify-content-md-center">
-      <div class="col-4">
-        <div class="chatterbox">
-          <h2>ChatterBox</h2>
-          <div class="divider"></div>
-          <% @rank_users.each_with_index do |user, index| %>
-          <table>
-            <tr>
-              <th class="col"><%= index+1 %>.</th>
-              <th class="col"><%= user.name %></th>
-              <th class="col"><%= user.replies_count %></th>
-            </tr>
-          </table>
-          <% end %>
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="col-4">
+          <div class="chatterbox">
+            <h2 class="text-center">ChatterBox</h2>
+            <div class="divider"></div>
+            <% @rank_users.each_with_index do |user, index| %>
+            <table>
+              <tr>
+                <th class="col"><%= index+1 %>.</th>
+                <th class="col"><%= user.name %></th>
+                <th class="col"><%= user.replies_count %></th>
+              </tr>
+            </table>
+            <% end %>
+          </div>
         </div>
-      </div>
-      <div class="col-6">
-        <div class="popular-post">
-          <h2>Most Popular Post</h2>
-          <% @rank_posts.each_with_index do |post, index| %>
-          <table>
-            <tr>
-              <th><%= index+1 %>.</th>
-              <th><%= post.title %></th>
-              <th><%= post.created_at.strftime("%F") %></th>
-            </tr>
-          </table>
-          <% end %>
+        <div class="col-6">
+          <div class="popular-post">
+            <h2 class="text-center">Most Popular Post</h2>
+            <% @rank_posts.each_with_index do |post, index| %>
+            <table>
+              <tr>
+                <th><%= index+1 %>.</th>
+                <th><%= post.title %></th>
+                <th><%= post.created_at.strftime("%F") %></th>
+              </tr>
+            </table>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
