@@ -1,19 +1,21 @@
 <section class="show-post-page">
   <div class="show-post-header p-4">
-    <div class="d-flex justify-content-between">
-      <div class="header-title">
-        <h1><%= @post.title %></h1>
-      </div>
-      <div class="header-btn">
-        <% if current_user.collects.where(post: @post).exists? %>
-          <div id="collect-<%= @post.id %>">
-            <%= link_to "uncollect", uncollect_post_path(@post), remote: true, method: :post, class: "btn btn-primary"%>
-          </div>
-        <% else %>
-          <div id="collect-<%= @post.id %>">
-            <%= link_to "collect", collect_post_path(@post),method: :post, remote: true, class: "btn btn-success"%>
-          </div>
-        <% end %>
+    <div class="container">
+      <div class="d-flex justify-content-between">
+        <div class="header-title">
+          <h1><%= @post.title %></h1>
+        </div>
+        <div class="header-btn">
+          <% if current_user.collects.where(post: @post).exists? %>
+            <div id="collect-<%= @post.id %>">
+              <%= link_to "uncollect", uncollect_post_path(@post), remote: true, method: :post, class: "btn btn-primary"%>
+            </div>
+          <% else %>
+            <div id="collect-<%= @post.id %>">
+              <%= link_to "collect", collect_post_path(@post),method: :post, remote: true, class: "btn btn-success"%>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

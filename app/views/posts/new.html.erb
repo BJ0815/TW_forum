@@ -29,12 +29,14 @@
       </div>
       <div class="form-group">
         <div class="form-check form-check-inline">Category</div>
-        <% Category.all.each do |category| %>
         <div class="form-check form-check-inline">
-          <%= f.check_box :category_id, {mutiple: true, class: "form-check-input"}, category.id, nil %>
-          <%= f.label category.name, class: "form-check-label" %>
+          <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |c| %>
+            <div class="collection_check_box">
+              <%= c.check_box class: "form-check-input"%>
+              <%= c.label  class: "form-check-label"%>
+            </div>
+          <% end %>
         </div>
-        <% end %>
       </div>
       <div class="form-group">
         <p>States: </p>

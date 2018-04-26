@@ -4,17 +4,25 @@ class PostsController < ApplicationController
   after_action :view_count, only: :show
 
   def index
-    @posts = Post.where(state: "public")
     @categories = Category.all
-    case params[:order]
-    when "replies"
-      @posts = Post.where(state: "public").includes(:replies).order('replies_count DESC')
-    when "last_replies"
-      @posts = Post.where(state: "public").includes(:replies).order("replies.created_at DESC")
-    when "views"
-      @posts = Post.where(state: "public").order('views_count DESC')
+    # session[:category] ||= params[:category]
+
+    if params[:category]
+      @posts = Category.find(params[:category]).posts.where(state: "public")
     else
       @posts = Post.where(state: "public")
+    end
+    if params[:order]
+      case params[:order]
+      when "replies"
+        @posts = Category.find(session[:category]).posts.where(state: "public").order('replies_count DESC')
+      when "last_replies"
+        @posts = Category.find(session[:category]).posts.includes(:replies).order("replies.created_at DESC")
+      when "views"
+        @posts = Category.find(session[:category]).posts.order('views_count DESC')
+      else
+        @posts = Category.find(session[:category]).posts.where(state: "public")
+      end
     end
   end
 
@@ -105,7 +113,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :photo, :state, :article_role, :category_id, :description)
+    params.require(:post).permit(:title, :photo, :state, :article_role, :description, category_ids:[])
   end
 
   def view_count
