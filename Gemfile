@@ -63,4 +63,6 @@ gem 'devise', '~> 4.2'
 gem 'carrierwave', '~> 1.0'
 gem 'ffaker', '~> 2.2'
 gem 'toastr-rails', '~> 1.0'
+gem 'jquery-tablesorter', '~> 1.21', '>= 1.21.4'
+gem 'font-awesome-rails', '~> 4.5'
 

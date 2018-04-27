@@ -28,30 +28,35 @@
   <div id="rank">
     <div class="container">
       <div class="row justify-content-md-center">
-        <div class="col-4">
-          <div class="chatterbox">
-            <h2 class="text-center">ChatterBox</h2>
+        <div class="col-3">
+          <div class="chatterbox text-center">
+            <div class="p-header">
+              <h2>ChatterBox</h2>
+            </div>
             <div class="divider"></div>
             <% @rank_users.each_with_index do |user, index| %>
             <table>
               <tr>
-                <th class="col"><%= index+1 %>.</th>
-                <th class="col"><%= user.name %></th>
-                <th class="col"><%= user.replies_count %></th>
+                <th width="30px"><%= index+1 %>.</th>
+                <th width="120px"><%= user.name %></th>
+                <th width="30px"><%= user.replies_count %></th>
               </tr>
             </table>
             <% end %>
           </div>
         </div>
-        <div class="col-6">
-          <div class="popular-post">
-            <h2 class="text-center">Most Popular Post</h2>
+        <div class="col-5">
+          <div class="popular-post text-center">
+            <div class="p-header">
+              <h2>Most Popular Post</h2>
+            </div>
+            <div class="divider"></div>
             <% @rank_posts.each_with_index do |post, index| %>
             <table>
               <tr>
-                <th><%= index+1 %>.</th>
-                <th><%= post.title %></th>
-                <th><%= post.created_at.strftime("%F") %></th>
+                <th width="10%"><%= index+1 %>.</th>
+                <th width="20%"><%= post.title %></th>
+                <th width="10%"><%= post.created_at.strftime("%F") %></th>
               </tr>
             </table>
             <% end %>

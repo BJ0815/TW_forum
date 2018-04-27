@@ -1,25 +1,24 @@
-<div class="row justify-content-md-center">
-  <div class="col-md-4">
-    <h2>Log in</h2>
+<section id="new-session-page">
+  <div class="row justify-content-md-center">
+    <div class="col-md-3">
+      <h2>Log in</h2>
 
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="form-group">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-      </div>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="form-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        </div>
 
-      <div class="form-group">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-      </div>
+        <div class="form-group">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+        </div>
 
-      <div class="form-group">
-        <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-primary" %>
-        <%= f.submit "Log in", class: "btn btn-primary" %>
-      </div>
-    <% end %>
-
-    <!-- <%= render "devise/shared/links" %> -->
+        <div class="form-group text-center">
+          <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-primary w-medium" %>
+          <%= f.submit "Log in", class: "btn btn-primary w-medium" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-
+</section>

@@ -1,0 +1,1 @@
+<%= link_to "add friend", friend_requests_path(friend_id: @post.user), method: :post, class: "btn btn-success" unless current_user == @post.user || current_user.friends.include?(@post.user) || current_user.friend_requests.where(friend_id: @post.user).exists? || @post.user.friend_requests.where(friend_id: current_user).exists? %>

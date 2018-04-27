@@ -1,33 +1,33 @@
 <section id="index-page">
+  <header>
+    <h1>Dojo Forum</h1>
+  </header>
   <div class="container">
-    <header>
-      <h1>Dojo Forum</h1>
-    </header>
     <div class="content">
       <div class="category-button-group p-3">
-        <%= link_to "All", posts_path, class: "btn btn-primary" %>
+        <%= link_to "All", posts_path, class: "btn btn-primary w-normal" %>
         <% @categories.each do |category| %>
-          <%= link_to "#{category.name}", posts_path(category: "#{category.id}"), class: "btn btn-primary" %>
+          <%= link_to "#{category.name}", posts_path(category: "#{category.id}"), class: "btn btn-primary w-normal" %>
         <% end %>
       </div>
 
-      <table class="table table-hover">
+      <table id="myTable" class="table tablesorter text-center">
         <thead>
           <tr>
-            <th scope="col"><%= link_to "replies count", posts_path(order: "replies") %></th>
-            <th scope="col">title</th>
-            <th scope="col"><%= link_to "last replies at", posts_path(order: "last_replies") %></th>
-            <th scope="col"><%= link_to "viewed count", posts_path(order: "views") %></th>
+            <th class="sortable" width="10%"><h5>Replies count</h5></th>
+            <th width="20%" class="text-left"><h5>Title</h5></th>
+            <th class="sortable" width="10%"><h5>Last replies at</h5></th>
+            <th class="sortable" width="10%"><h5>Viewed count</h5></th>
           </tr>
         </thead>
         <tbody>
           <% @posts.each do |post| %>
             <% if article_role(post) %>
             <tr data-link="<%= post_path(post)%>">
-              <td>[<%= post.replies_count %>]</td>
-              <td><%= post.title %></td>
-              <td><%= time_tag post.replies.last.created_at if post.replies.present? %></td>
-              <td>[<%= post.views_count %>]</td>
+              <td class="count-block"><span><%= post.replies_count %></span></td>
+              <td class="text-left"><strong><%= post.title %></strong></td>
+              <td><%= post.replies.last.created_at.strftime('%F') if post.replies.present? %></td>
+              <td><i class="fa fa-eye"></i>  <%= post.views_count %></td>
             </tr>
             <% end %>
           <% end %>
@@ -42,5 +42,14 @@
   // 用jquery 實作點擊事件
   $("tr[data-link]").on('click', function(){
     window.location = $(this).data("link");
+  });
+
+  $(function(){
+    $("#myTable").tablesorter( { 
+      theme : "bootstrap",
+
+      headerTemplate : "{content}{icon}",
+
+      selectorHeaders: 'thead th.sortable' } );
   });
 </script>

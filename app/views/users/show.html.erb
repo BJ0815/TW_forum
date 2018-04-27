@@ -42,8 +42,8 @@
               <td><%= post.state %></td>
               <td><%= post.created_at.strftime('%F') %></td>
               <% if current_user == post.user %>
-                <td><%= link_to "編輯", edit_post_path(post) %></td>
-                <td><%= link_to "刪除", post_path(post), method: :delete %></td>
+                <td><%= link_to fa_icon("pencil"), edit_post_path(post), class: "btn btn-primary" %>
+                  <%= link_to fa_icon("times"), post_path(post), method: :delete, class: "btn btn-danger" %></td>
               <% end %>
             </tr>
             <% end %>
@@ -73,8 +73,8 @@
               <td><%= post.state %></td>
               <td><%= post.created_at.strftime('%F') %></td>
               <% if current_user == post.user %>
-                <td><%= link_to "編輯", edit_post_path(post) %></td>
-                <td><%= link_to "刪除", post_path(post), method: :delete %></td>
+                <td><%= link_to fa_icon("pencil"), edit_post_path(post), class: "btn btn-primary" %>
+                  <%= link_to fa_icon("times"), post_path(post), method: :delete, class: "btn btn-danger" %></td>
               <% end %>
             </tr>
             <% end %>

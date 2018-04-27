@@ -6,15 +6,7 @@
           <h1><%= @post.title %></h1>
         </div>
         <div class="header-btn">
-          <% if current_user.collects.where(post: @post).exists? %>
-            <div id="collect-<%= @post.id %>">
-              <%= link_to "uncollect", uncollect_post_path(@post), remote: true, method: :post, class: "btn btn-primary"%>
-            </div>
-          <% else %>
-            <div id="collect-<%= @post.id %>">
-              <%= link_to "collect", collect_post_path(@post),method: :post, remote: true, class: "btn btn-success"%>
-            </div>
-          <% end %>
+          <%= render "shared/collect_btn", object: @post %>
         </div>
       </div>
     </div>
@@ -27,7 +19,7 @@
             <%= image_tag @post.user.avatar, size: "150" %>
           </figure>
           <p><%= @post.user.name %></p>
-          <%= link_to "add friend", friend_requests_path(friend_id: @post.user), method: :post unless current_user == @post.user || !current_user.friends.include?(@post.user) %>
+          <%= render "shared/add_friend", object: @post %>
         </div>
         <div class="col-md-9">
           <figure>
@@ -35,8 +27,8 @@
           </figure>
           <p><%= @post.description %></p>
           <div class="edit-btn">
-            <%= link_to "編輯", edit_post_path(@post), class: "btn btn-primary" if current_user == @post.user %>
-            <%= link_to "刪除", post_path(@post), method: :delete, class: "btn btn-danger" if current_user == @post.user || current_user.role == "admin" %>
+            <%= link_to fa_icon("pencil"), edit_post_path(@post), class: "btn btn-primary" if current_user == @post.user %>
+            <%= link_to fa_icon("times"), post_path(@post), method: :delete, class: "btn btn-danger" if current_user == @post.user || current_user.role == "admin" %>
           </div>
         </div>
       </div>
@@ -51,6 +43,7 @@
               <%= image_tag reply.user.avatar, size: "150" %>
             </figure>
             <p><%= reply.user.name %></p>
+            <%= render "shared/add_friend", object: reply.user %>
           </div>
           <div class="col-md-9">
             <%= reply.comment %>
@@ -59,8 +52,8 @@
 
             <div class="edit-btn">
               <% if current_user == reply.user %>
-                <%= link_to "編輯", edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
-                <%= link_to "刪除", post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
+                <%= link_to fa_icon("pencil"), edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
+                <%= link_to fa_icon("times"), post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
               <% end %>
             </div>
           </div>

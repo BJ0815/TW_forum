@@ -8,8 +8,8 @@
       </div>
       <div class="col-md-4 mt-auto">
         <% if current_user == reply.user %>
-          <%= link_to "編輯", edit_post_reply_path(reply.post, reply) %></td>
-          <%= link_to "刪除", post_reply_path(reply.post, reply), method: :delete %></td>
+          <%= link_to fa_icon("pencil"), edit_post_reply_path(reply.post, reply), class: "btn btn-primary" %></td>
+          <%= link_to fa_icon("times"), post_reply_path(reply.post, reply), method: :delete, class: "btn btn-danger" %></td>
         <% end %>
       </div>
     </div>

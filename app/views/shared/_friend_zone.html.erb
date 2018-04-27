@@ -1,11 +1,15 @@
 <div class="outcoming-block pt-4">
   <h5 class="text-center text-muted">Waiting for response</h5>
-  <% object1.each do |friend| %>
-    <figure>
-      <%= image_tag friend.avatar, size: "120" %>
-    </figure>
-    <p><%= friend.email %></p>
-  <% end %>
+  <div class="row">
+    <% object1.each do |friend| %>
+    <div class="col-md-2 text-center">
+      <figure>
+        <%= image_tag friend.avatar, size: "120" %>
+      </figure>
+      <p><%= friend.name if friend.name %></p>
+    </div>
+    <% end %>
+  </div>
 </div>
 <div class="incoming-block">
   <div class="row">

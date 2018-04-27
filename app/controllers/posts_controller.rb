@@ -5,25 +5,13 @@ class PostsController < ApplicationController
 
   def index
     @categories = Category.all
-    # session[:category] ||= params[:category]
 
     if params[:category]
       @posts = Category.find(params[:category]).posts.where(state: "public")
     else
       @posts = Post.where(state: "public")
     end
-    if params[:order]
-      case params[:order]
-      when "replies"
-        @posts = Category.find(session[:category]).posts.where(state: "public").order('replies_count DESC')
-      when "last_replies"
-        @posts = Category.find(session[:category]).posts.includes(:replies).order("replies.created_at DESC")
-      when "views"
-        @posts = Category.find(session[:category]).posts.order('views_count DESC')
-      else
-        @posts = Category.find(session[:category]).posts.where(state: "public")
-      end
-    end
+
   end
 
   def feed
