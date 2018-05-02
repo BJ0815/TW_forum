@@ -22,3 +22,9 @@
 
 .byebug_history
 /public/uploads
+config/database.yml
+config/secrets.yml
+log
+tmp/pids
+tmp/cache
+tmp/sockets
