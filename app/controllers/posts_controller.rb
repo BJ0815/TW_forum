@@ -80,7 +80,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if current_user == @post.user
+    if current_user == @post.user || current_user.admin?
       @post.destroy
       redirect_to root_path, :notice => "成功刪除post"
     end

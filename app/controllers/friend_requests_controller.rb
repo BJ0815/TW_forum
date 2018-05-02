@@ -1,4 +1,5 @@
 class FriendRequestsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_friend_request, except: [:create]
 
 
@@ -17,15 +18,19 @@ class FriendRequestsController < ApplicationController
   def update
     @friend_request.accept
     flash[:notice] = "接受成為好友"
-    redirect_back(fallback_location: root_path)
-    # head :no_content
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: request.referer ) }
+      format.js
+    end
   end
 
   def destroy
     @friend_request.destroy
     flash[:notice] = "拒絕成為好友"
-    redirect_back(fallback_location: root_path)
-    # head :no_content
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: request.referer ) }
+      format.js
+    end
   end
 
   private

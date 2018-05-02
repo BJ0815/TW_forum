@@ -17,6 +17,7 @@ namespace :dev do
 
       user.save!
     end
+
   end
 
   task fake_request: :environment do
@@ -29,4 +30,5 @@ namespace :dev do
     end
 
   end
+
 end

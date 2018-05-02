@@ -8,6 +8,9 @@ class FriendRequest < ApplicationRecord
   validate :not_friends
 
   def accept
+    # 接受好友邀請
+    # 藉由friendship關聯新增friend
+    # 並將好友邀請刪除
     user.friends << friend
     destroy
   end

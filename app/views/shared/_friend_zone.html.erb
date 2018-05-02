@@ -1,41 +1,34 @@
 <div class="outcoming-block pt-4">
   <h5 class="text-center text-muted">Waiting for response</h5>
   <div class="row">
-    <% object1.each do |friend| %>
-    <div class="col-md-2 text-center">
-      <figure>
-        <%= image_tag friend.avatar, size: "120" %>
-      </figure>
-      <p><%= friend.name if friend.name %></p>
+    <!-- 等待回覆的好友邀請區 -->
+    <div id="outcoming-content">
+      <% object1.each do |outcoming| %>
+      <div id="outcoming-<%= outcoming.id %>" class="col-md-2 text-center">
+        <figure>
+          <%= image_tag outcoming.avatar, size: "120" %>
+        </figure>
+        <p><%= outcoming.name if outcoming.name %></p>
+      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>
 <div class="incoming-block">
   <div class="row">
+    <!-- 好友邀請區 -->
     <% object2.each do |request| %>
-    <div class="col-md-2 incoming-info text-center">
+    <div id="incoming-<%= request.id %>" class="col-md-2 incoming-info text-center">
       <figure>
         <%= image_tag request.user.avatar, size: "120" %>
       </figure>
       <p><%= request.user.name %></p>
-      <%= link_to "Accept", friend_request_path(current_user), method: :patch, class: "btn btn-success" %>
-      <%= link_to "Ignore", friend_request_path(current_user), method: :delete, class: "btn btn-danger" %>
+      <%= link_to "Accept", friend_request_path(current_user), remote: true, method: :patch, class: "btn btn-success", id: "Accept-btn" %>
+      <%= link_to "Ignore", friend_request_path(current_user), remote: true, method: :delete, class: "btn btn-danger" %>
     </div>
     <% end %>
   </div>
 </div>
-<div class="friend-block">
-  <div class="row">
-    <% unless current_user.friends.blank? %>
-      <% current_user.friends.each do |friend| %>
-      <div class="col-md-2 text-center">
-        <figure>
-          <%= image_tag friend.avatar, size: "120" %>
-        </figure>
-        <p><%= friend.name %></p>
-      </div>
-      <% end %>
-    <% end %>     
-  </div>
+<div id="friends" class="friend-block">
+  <%= render 'shared/friend' %>
 </div>
