@@ -23,9 +23,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # 後台
   namespace :admin do
     resources :categories
     resources :users, only: [:index, :update]
+  end
+
+  # API 
+  namespace :api, default: {format: :json} do
+    namespace :v1 do
+      resources :posts, only: [:index, :show, :create, :update, :destroy]
+    end
   end
 
 end
