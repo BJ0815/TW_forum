@@ -14,6 +14,7 @@ FactoryBot.define do
     description { FFaker::Lorem.paragraph }
     state { "public" }
     article_role { "all" }
+    user
   end
 
   factory :reply do
@@ -22,5 +23,9 @@ FactoryBot.define do
     post
   end
 
+  factory :friend_request do
+    user
+    friend, class_name="User"
+  end
 
 end

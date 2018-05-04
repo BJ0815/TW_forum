@@ -20,6 +20,8 @@ class User < ApplicationRecord
 
   has_many :friend_requests, dependent: :destroy
   has_many :pending_friends, through: :friend_requests, source: :friend
+
+  validates :name, uniqueness: true
   
   def admin?
     self.role == "admin"

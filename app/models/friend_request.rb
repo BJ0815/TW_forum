@@ -22,6 +22,6 @@ class FriendRequest < ApplicationRecord
   end
 
   def not_friends
-    errors[:friend] << "is already added" if user.friends.include?(friend)
+    errors[:friend] << "is already added" if friends.include?(friend)
   end
 end
