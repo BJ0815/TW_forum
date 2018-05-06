@@ -15,15 +15,17 @@
 <div class="incoming-block">
   <div class="row">
     <!-- 好友邀請區 -->
-    <% object2.each do |request| %>
-    <div id="incoming-<%= request.id %>" class="col-md-2 incoming-info text-center" data-link="<%= user_path(request.user) %>">
-      <figure>
-        <%= image_tag request.user.avatar, size: "120" %>
-      </figure>
-      <p><%= request.user.name %></p>
-      <%= link_to "Accept", friend_request_path(current_user), remote: true, method: :patch, class: "btn btn-success", id: "Accept-btn" %>
-      <%= link_to "Ignore", friend_request_path(current_user), remote: true, method: :delete, class: "btn btn-danger" %>
-    </div>
+    <% if current_user == user %>
+      <% object2.each do |request| %>
+      <div id="incoming-<%= request.id %>" class="col-md-2 incoming-info text-center" data-link="<%= user_path(request.user) %>">
+        <figure>
+          <%= image_tag request.user.avatar, size: "120" %>
+        </figure>
+        <p><%= request.user.name %></p>
+        <%= link_to "Accept", friend_request_path(current_user), remote: true, method: :patch, class: "btn btn-success", id: "Accept-btn" %>
+        <%= link_to "Ignore", friend_request_path(current_user), remote: true, method: :delete, class: "btn btn-danger" %>
+      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
