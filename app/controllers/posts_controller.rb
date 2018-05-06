@@ -7,9 +7,9 @@ class PostsController < ApplicationController
     @categories = Category.all
 
     if params[:category]
-      @posts = Category.find(params[:category]).posts.publics
+      @posts = Category.find(params[:category]).posts.publics.page(params[:page]).per(20)
     else
-      @posts = Post.publics
+      @posts = Post.publics.page(params[:page]).per(20)
     end
 
   end
@@ -54,7 +54,7 @@ class PostsController < ApplicationController
 
   def show
     @reply = Reply.new
-    @replies = @post.replies.all
+    @replies = @post.replies.all.page(params[:page]).per(20)
   end
 
   def edit
