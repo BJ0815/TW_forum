@@ -37,19 +37,3 @@
   </div>
 
 </section>
-
-<script>
-  // 用jquery 實作點擊事件
-  $("tr[data-link]").on('click', function(){
-    window.location = $(this).data("link");
-  });
-
-  $(function(){
-    $("#myTable").tablesorter( { 
-      theme : "bootstrap",
-
-      headerTemplate : "{content}{icon}",
-
-      selectorHeaders: 'thead th.sortable' } );
-  });
-</script>

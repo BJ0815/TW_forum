@@ -3,18 +3,18 @@ module PostsHelper
   def article_role(post)
     case post.article_role
     when "all"
-      return true
+      true
     when "friend"
-      if post.user.friends.include?(current_user)
-        return true
+      if post.user.friends.include?(current_user) || post.user == current_user
+        true
       else
-        return false
+        false
       end
     when "myself"
       if post.user == current_user
-        return true
+        true
       else
-        return false
+        false
       end
     end
   end

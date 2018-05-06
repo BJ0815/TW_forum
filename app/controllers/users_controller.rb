@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_user
 
   def show
-    @friends = current_user.friends
+    @friends = @user.friends
     # 好友邀請
     @requests = FriendRequest.where(friend: current_user)
     @pending = current_user.pending_friends

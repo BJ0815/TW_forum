@@ -18,3 +18,19 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+  // 用jquery 實作點擊事件
+  $("tr[data-link]").on('click', function(){
+    window.location = $(this).data("link");
+  });
+
+  // 用jquery plugin - tablesorter 做排序
+  $("#myTable").tablesorter( { 
+    theme : "bootstrap",
+
+    headerTemplate : "{content}{icon}",
+
+    selectorHeaders: 'thead th.sortable'
+  } );
+});

@@ -7,9 +7,9 @@ class PostsController < ApplicationController
     @categories = Category.all
 
     if params[:category]
-      @posts = Category.find(params[:category]).posts.where(state: "public")
+      @posts = Category.find(params[:category]).posts.publics
     else
-      @posts = Post.where(state: "public")
+      @posts = Post.publics
     end
 
   end

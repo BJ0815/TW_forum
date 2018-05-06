@@ -25,7 +25,7 @@ FactoryBot.define do
 
   factory :friend_request do
     user
-    friend, class_name="User"
+    friend
   end
 
 end

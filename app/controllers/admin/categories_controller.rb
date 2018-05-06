@@ -23,7 +23,11 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def destroy
-    @category.destroy
+    if !@category.posts.exists?
+      @category.destroy
+    else
+      flash[:alert] = "this category can't delete"
+    end
     redirect_back(fallback_location: root_path)
   end
 

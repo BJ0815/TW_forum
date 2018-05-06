@@ -10,4 +10,6 @@ class Post < ApplicationRecord
   validates :description, presence: true, length: { maximum: 500 }
   validates :article_role, presence: true
   validates :state, presence: true
+
+  scope :publics, -> { where(state: "public") }
 end

@@ -4,6 +4,7 @@ class FriendRequest < ApplicationRecord
 
   validates :user, presence: true
   validates :friend, presence: true, uniqueness: { scope: :user }
+
   validate :not_self
   validate :not_friends
 
@@ -22,6 +23,6 @@ class FriendRequest < ApplicationRecord
   end
 
   def not_friends
-    errors[:friend] << "is already added" if friends.include?(friend)
+    errors[:friend] << "is already added" if user.friends.include?(friend)
   end
 end
