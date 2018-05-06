@@ -12,4 +12,13 @@ class Post < ApplicationRecord
   validates :state, presence: true
 
   scope :publics, -> { where(state: "public") }
+
+  def self.article_role(user)
+    # 根據文章權限顯示
+    if user
+      where(article_role: "all").or( where(article_role: "friend", user: [user.friends, user])).or( where(article_role: "myself", user: user))
+    else
+      where(article_role: "all").publics.includes(:replies)
+    end
+  end
 end

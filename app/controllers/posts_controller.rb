@@ -7,9 +7,9 @@ class PostsController < ApplicationController
     @categories = Category.all
 
     if params[:category]
-      @posts = Category.find(params[:category]).posts.publics.page(params[:page]).per(20)
+      @posts = Category.find(params[:category]).posts.article_role(current_user).publics.includes(:replies).page(params[:page]).per(20)
     else
-      @posts = Post.publics.page(params[:page]).per(20)
+      @posts = Post.article_role(current_user).page(params[:page]).per(20)
     end
 
   end

@@ -18,6 +18,19 @@ namespace :dev do
       user.save!
     end
 
+    User.all.each do |user|
+      5.times do |i|
+        role = ["all","friend","myself"]
+
+        user.posts.create!(
+          title: "user: #{user.id}, post#{i}",
+          description: FFaker::Lorem::sentence(50),
+          state: 'public',
+          article_role: role.sample,
+          )
+      end
+    end
+
   end
 
   task fake_request: :environment do
