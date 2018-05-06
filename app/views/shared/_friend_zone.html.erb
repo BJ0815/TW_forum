@@ -2,23 +2,21 @@
   <h5 class="text-center text-muted">Waiting for response</h5>
   <div class="row">
     <!-- 等待回覆的好友邀請區 -->
-    <div id="outcoming-content">
-      <% object1.each do |outcoming| %>
-      <div id="outcoming-<%= outcoming.id %>" class="col-md-2 text-center">
-        <figure>
-          <%= image_tag outcoming.avatar, size: "120" %>
-        </figure>
-        <p><%= outcoming.name if outcoming.name %></p>
-      </div>
-      <% end %>
+    <% object1.each do |outcoming| %>
+    <div id="outcoming-<%= outcoming.id %>" class="text-center user-info" data-link="<%= user_path(outcoming) %>">
+      <figure>
+        <%= image_tag outcoming.avatar, size: "120" %>
+      </figure>
+      <p><%= outcoming.name if outcoming.name %></p>
     </div>
+    <% end %>
   </div>
 </div>
 <div class="incoming-block">
   <div class="row">
     <!-- 好友邀請區 -->
     <% object2.each do |request| %>
-    <div id="incoming-<%= request.id %>" class="col-md-2 incoming-info text-center">
+    <div id="incoming-<%= request.id %>" class="col-md-2 incoming-info text-center" data-link="<%= user_path(request.user) %>">
       <figure>
         <%= image_tag request.user.avatar, size: "120" %>
       </figure>
@@ -30,5 +28,5 @@
   </div>
 </div>
 <div id="friends" class="friend-block">
-  <%= render 'shared/friend' %>
+  <%= render 'shared/friend', user: user %>
 </div>

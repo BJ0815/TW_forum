@@ -1,8 +1,8 @@
 <!-- 好友區 -->
 <div class="row">
-  <% unless current_user.friends.blank? %>
-    <% current_user.friends.each do |friend| %>
-    <div class="col-md-2 text-center">
+  <% unless user.friends.blank? %>
+    <% user.friends.each do |friend| %>
+    <div class="col-md-2 text-center user-info" data-link="<%= user_path(friend) %>">
       <figure>
         <%= image_tag friend.avatar, size: "120" %>
       </figure>

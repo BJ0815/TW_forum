@@ -4,7 +4,8 @@ a {
   color: #2EC4B6;
 }
 
-.tr-link {
+.tr-link,
+.user-info {
   cursor: pointer;
 }
 
@@ -106,6 +107,9 @@ th {
   }
 }
 
+#friend .col-md-2 {
+  max-width: inherit;
+}
 
 #feed-header > .row {
   min-height: 200px;

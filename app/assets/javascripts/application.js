@@ -25,6 +25,10 @@ $(document).on("turbolinks:load",function(){
     window.location = $(this).data("link");
   });
 
+  $("div[data-link]").on('click', function(){
+    window.location = $(this).data("link");
+  });
+
   // 用jquery plugin - tablesorter 做排序
   $("#myTable").tablesorter( { 
     theme : "bootstrap",
