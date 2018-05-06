@@ -23,7 +23,7 @@
         <tbody>
           <% @posts.each do |post| %>
             <% if article_role(post) %>
-            <tr data-link="<%= post_path(post)%>">
+            <tr class="tr-link" data-link="<%= post_path(post)%>">
               <td class="count-block"><span><%= post.replies_count %></span></td>
               <td class="text-left"><strong><%= post.title %></strong></td>
               <td><%= post.replies.last.created_at.strftime('%F') if post.replies.present? %></td>

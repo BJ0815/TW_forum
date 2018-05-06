@@ -39,7 +39,7 @@
           <!-- 發布的post -->
           <table class="table table-hover">
             <% @user.public_posts.all.each do |post| %>
-            <tr>
+            <tr class="tr-link" data-link="<%= post_path(post) %>">
               <td><%= post.title %></td>
               <td><%= post.state %></td>
               <td><%= post.created_at.strftime('%F') %></td>

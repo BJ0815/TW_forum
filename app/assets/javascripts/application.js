@@ -19,7 +19,7 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function(){
+$(document).on("turbolinks:load",function(){
   // 用jquery 實作點擊事件
   $("tr[data-link]").on('click', function(){
     window.location = $(this).data("link");
