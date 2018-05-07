@@ -11,7 +11,9 @@ class FriendRequestsController < ApplicationController
       # render :show, status: :created, location: @friend_request
       redirect_back(fallback_location: root_path)
     else
-      render json: @friend_request.errors, status: :unprocessable_entity
+      # render json: @friend_request.errors, status: :unprocessable_entity
+      flash[:alert] = @friend_request.errors.full_messages.to_sentence
+      redirect_back(fallback_location: root_path)
     end
   end
 
