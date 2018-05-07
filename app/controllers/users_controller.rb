@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
+    @publics = Post.where(user: @user).article_role(@user)
     @friends = @user.friends
     # 好友邀請
     @requests = FriendRequest.where(friend: current_user)
