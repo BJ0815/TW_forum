@@ -3,11 +3,11 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
-    @publics = Post.where(user: @user).article_role(@user)
+    @publics = Post.where(user: @user).article_role(current_user)
     @friends = @user.friends
     # 好友邀請
-    @requests = FriendRequest.where(friend: current_user)
-    @pending = current_user.pending_friends
+    @requests = FriendRequest.where(friend: @user)
+    @pending = @user.pending_friends
   end
 
   def edit
