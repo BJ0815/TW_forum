@@ -1,3 +1,1 @@
-<%= link_to "add friend", friend_requests_path(friend_id: @post.user), method: :post, class: "btn btn-success" unless current_user == @post.user || 
-                              current_user.friends.include?(@post.user) ||current_user.friend_requests.include?(@post.user) || 
-                                @post.user.friend_requests.include?(current_user) %>
+<%= link_to "add friend", friend_requests_path(friend_id: object.user), method: :post, class: "btn btn-success" unless current_user == object.user || current_user.friends.find_by(id: object.user.id).present? || current_user.friend_requests.find_by(friend_id: object.user).present? || object.user.friend_requests.find_by(friend_id: current_user).present? %>

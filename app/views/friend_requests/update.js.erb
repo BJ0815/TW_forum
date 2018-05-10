@@ -1,3 +1,3 @@
 // remove好友邀請並在 #friend 顯示好友
 $('#incoming-<%= @friend_request.id %>').remove();
-$('#friends').html("<%= j( render 'shared/friend' ) %>");
+$('#friends').html("<%= j( render 'shared/friend', user: current_user ) %>");

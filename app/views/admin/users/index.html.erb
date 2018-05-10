@@ -16,7 +16,7 @@
         </thead>
         <tbody>
           <% @users.each do |user| %>
-          <tr>
+          <tr class="tr-link" data-link="<%= user_path(user) %>">
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td>

@@ -22,13 +22,15 @@
 $(document).on("turbolinks:load",function(){
   // 用jquery 實作點擊事件
   $("tr[data-link]").on('click', function( event ) {
-    if (!($(event.target).is('a') || $(event.target).is('i'))) {
+    if (!($(event.target).is('a') || $(event.target).is('i') || $(event.target).is('select') || $(event.target).is('input'))) {
       window.location = $(this).data("link");
     }
   });
 
-  $("div[data-link]").on('click', function(){
-    window.location = $(this).data("link");
+  $("div[data-link]").on('click', function(event){
+    if (!($(event.target).is('a') || $(event.target).is('i'))) {
+      window.location = $(this).data("link");
+    }
   });
 
   // 用jquery plugin - tablesorter 做排序

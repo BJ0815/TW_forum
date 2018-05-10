@@ -18,7 +18,8 @@
     </ul>
     <% if user_signed_in? %>
       <%= link_to '後台', admin_categories_path , class: "nav-link" if current_user.role == "admin" %>
-      <%= link_to current_user.email, user_path(current_user), class: "nav-link" %>
+      <span class="nav-link"><%= current_user.email %></span>
+      <%= link_to "Profile", user_path(current_user), class: "nav-link" %>
       <%= link_to 'Log out', destroy_user_session_path,method: :delete, class: "nav-link" %>
     <% else %>
       <%= link_to 'Log in', new_user_session_path, class: "nav-link" %>

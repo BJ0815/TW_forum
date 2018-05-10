@@ -19,7 +19,7 @@ class RepliesController < ApplicationController
     # 編輯留言（並在同一頁執行）
     @reply = current_user.replies.find_by(id: params[:id])
     @post = Post.find(params[:post_id])
-    @replies = @post.replies.all
+    @replies = @post.replies.all.page(params[:page]).per(20)
     render 'posts/show.html.erb'
   end
 

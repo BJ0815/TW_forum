@@ -18,7 +18,7 @@ class Post < ApplicationRecord
     if user
       where(article_role: "all").or( where(article_role: "friend", user: [user.friends, user])).or( where(article_role: "myself", user: user))
     else
-      where(article_role: "all").publics.includes(:replies)
+      where(article_role: "all").publics
     end
   end
 end
