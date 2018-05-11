@@ -36,23 +36,23 @@
     
     <div class="reply-block p-3">
       <% @replies.each do |reply| %>
-      <div class="reply-content py-3">
+      <div class="reply-content p-3">
         <div class="row">
           <div class="col-md-3 text-center user-info" data-link="<%= user_path(reply.user) %>">
             <figure>
               <%= image_tag reply.user.avatar, size: "150" %>
             </figure>
             <p><%= reply.user.name %></p>
-            <%= render "shared/add_friend", object: reply.user %>
+            <%= render "shared/add_friend", object: reply %>
           </div>
           <div class="col-md-9">
-            <%= reply.comment %>
+            <p><%= reply.comment %></p>
 
             <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post unless current_user == reply.user || !current_user.friends.include?(reply.user) %>
 
             <div class="edit-btn">
               <% if current_user == reply.user %>
-                <%= link_to fa_icon("pencil"), edit_post_reply_path(@post, reply), class: "btn btn-primary" %>
+                <%= link_to fa_icon("pencil"), edit_post_reply_path(@post, reply), class: "btn btn-custom border-custom" %>
                 <%= link_to fa_icon("times"), post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
               <% end %>
             </div>
@@ -69,7 +69,7 @@
           <%= f.text_area :comment,placeholder: "add comment", resize: false, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= f.submit "Submit", class: "btn btn-primary" %>
+          <%= f.submit "Submit", class: "btn btn-custom border-custom" %>
         </div>
       <% end %>
     </div>
