@@ -32,6 +32,16 @@ th {
 
 #new-post-page {
   color: #fff;
+
+  form {
+    padding: 1em;
+    background-color: #3A506B;
+    border-radius: 6px;
+  }
+
+  .collection_check_box {
+    padding-left: 1em;
+  }
 }
 
 .w-medium {
@@ -85,6 +95,7 @@ th {
   color: #fff;
   width: 100%;
 }
+
 // end
 
 // ==== button and link style 
@@ -291,6 +302,25 @@ a:hover {
       }
     }
   }
+}
 
+// ==== pigination 
+.page-item .page-link{
+  background-color: transparent;
+  border-color: #e0e0e0;
+  color: #fff;
 
+  &:hover {
+    background-color: #3A506B;
+    color: #6FFFE9;
+  }
+}
+
+.page-item.active .page-link {
+  background-color: #3A506B;
+  border-color: #e0e0e0;
+
+  &:hover {
+    color: #6FFFE9;
+  }
 }

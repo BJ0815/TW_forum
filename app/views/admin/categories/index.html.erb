@@ -11,7 +11,7 @@
       <div class="form-group">
         <%= f.text_field :name, placeholder: "Category Name", class: "form-block" %>
       </div>
-      <%= f.submit "Create", class: "btn btn-primary" %>
+      <%= f.submit "Create", class: "btn btn-custom" %>
 
       <% end %>
     </div>
@@ -29,8 +29,8 @@
           <tr>
             <td style="width: 65%"><%= category.name %></td>
             <td>
-              <%= link_to "edit", edit_admin_category_path(category), class: "btn btn-primary" %>
-              <%= link_to "Delete", admin_category_path(category), method: :delete, class: "btn btn-primary" %> 
+              <%= link_to "edit", edit_admin_category_path(category), class: "btn btn-custom" %>
+              <%= link_to "Delete", admin_category_path(category), method: :delete, class: "btn btn-danger" %> 
             </td>
           </tr>
           <% end %>
