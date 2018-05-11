@@ -34,15 +34,15 @@
               <h2>ChatterBox</h2>
             </div>
             <div class="divider"></div>
+            <table class="rank-list">
             <% @rank_users.each_with_index do |user, index| %>
-            <table>
               <tr>
-                <th width="30px"><%= index+1 %>.</th>
-                <th width="120px"><%= user.name %></th>
-                <th width="30px"><%= user.replies_count %></th>
+                <td width="30px"><%= index+1 %>.</td>
+                <td width="120px"><%= user.name %></td>
+                <td width="30px"><%= user.replies_count %></td>
               </tr>
-            </table>
             <% end %>
+            </table>
           </div>
         </div>
         <div class="col-5">
@@ -51,15 +51,15 @@
               <h2>Most Popular Post</h2>
             </div>
             <div class="divider"></div>
-            <% @rank_posts.each_with_index do |post, index| %>
             <table>
+            <% @rank_posts.each_with_index do |post, index| %>
               <tr>
-                <th width="10%"><%= index+1 %>.</th>
-                <th width="20%"><%= post.title %></th>
-                <th width="10%"><%= post.created_at.strftime("%F") %></th>
+                <td width="10%"><%= index+1 %>.</td>
+                <td width="20%"><%= post.title %></td>
+                <td width="10%"><%= post.created_at.strftime("%F") %></td>
               </tr>
-            </table>
             <% end %>
+            </table>
           </div>
         </div>
       </div>
