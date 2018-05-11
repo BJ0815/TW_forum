@@ -5,9 +5,9 @@
   <div class="container">
     <div class="content">
       <div class="category-button-group p-3">
-        <%= link_to "All", posts_path, class: "btn btn-primary w-normal" %>
+        <%= link_to "All", posts_path, class: "btn btn-custom w-normal" %>
         <% @categories.each do |category| %>
-          <%= link_to "#{category.name}", posts_path(category: "#{category.id}"), class: "btn btn-primary w-normal" %>
+          <%= link_to "#{category.name}", posts_path(category: "#{category.id}"), class: "btn btn-custom w-normal" %>
         <% end %>
       </div>
 
