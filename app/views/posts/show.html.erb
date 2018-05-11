@@ -27,7 +27,7 @@
           </figure>
           <p><%= @post.description %></p>
           <div class="edit-btn">
-            <%= link_to fa_icon("pencil"), edit_post_path(@post), class: "btn btn-primary" if current_user == @post.user %>
+            <%= link_to fa_icon("pencil"), edit_post_path(@post), class: "btn btn-custom" if current_user == @post.user %>
             <%= link_to fa_icon("times"), post_path(@post), method: :delete, class: "btn btn-danger" if current_user == @post.user || current_user.role == "admin" %>
           </div>
         </div>
@@ -52,7 +52,7 @@
 
             <div class="edit-btn">
               <% if current_user == reply.user %>
-                <%= link_to fa_icon("pencil"), edit_post_reply_path(@post, reply), class: "btn btn-custom border-custom" %>
+                <%= link_to fa_icon("pencil"), edit_post_reply_path(@post, reply), class: "btn btn-dark" %>
                 <%= link_to fa_icon("times"), post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
               <% end %>
             </div>
@@ -69,7 +69,7 @@
           <%= f.text_area :comment,placeholder: "add comment", resize: false, class: "form-control" %>
         </div>
         <div class="form-group">
-          <%= f.submit "Submit", class: "btn btn-custom border-custom" %>
+          <%= f.submit "Submit", class: "btn btn-custom" %>
         </div>
       <% end %>
     </div>
