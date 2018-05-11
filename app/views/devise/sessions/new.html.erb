@@ -1,6 +1,6 @@
 <section id="new-session-page">
   <div class="row justify-content-md-center">
-    <div class="col-md-3">
+    <div class="col-md-3 devise-block">
       <h2>Log in</h2>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -15,8 +15,8 @@
         </div>
 
         <div class="form-group text-center">
-          <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-primary w-medium" %>
-          <%= f.submit "Log in", class: "btn btn-primary w-medium" %>
+          <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-custom w-medium" %>
+          <%= f.submit "Log in", class: "btn btn-custom w-medium" %>
         </div>
       <% end %>
     </div>
