@@ -10,6 +10,35 @@ input[type='file'] {
   color: #fff;
 }
 
+th {
+  background-color: #fff !important;
+}
+
+
+.w-normal {
+  width: 75px;
+}
+
+.edit-btn {
+  position: absolute;
+  bottom: 1em;
+  right: 3em;
+}
+
+#new-session-page,
+#new-post-page {
+  margin-top: 5em;
+}
+
+#new-post-page {
+  color: #fff;
+}
+
+.w-medium {
+  width: 48%;
+}
+
+
 // ==== table
 .table {
   background-color: #1C2541;
@@ -131,21 +160,7 @@ a:hover {
 
 // end
 
-th {
-  background-color: #fff !important;
-}
-
-
-.w-normal {
-  width: 75px;
-}
-
-.edit-btn {
-  position: absolute;
-  bottom: 1em;
-  right: 3em;
-}
-
+// ===== friend block
 .friend-block, .outcoming-block {
   min-height: 300px;
   background-color: #1C2541;
@@ -194,17 +209,11 @@ th {
   }
 }
 
+// end
+
 .chatterbox table {
   width: 100%;
   max-width: 100%;
-}
-
-#new-session-page {
-  margin-top: 5em;
-}
-
-.w-medium {
-  width: 48%;
 }
 
 #rank tr{
