@@ -8,10 +8,9 @@ class FriendRequestsController < ApplicationController
     @friend_request = current_user.friend_requests.new(friend: friend)
 
     if @friend_request.save
-      # render :show, status: :created, location: @friend_request
+      flash[:notice] = "已送出好友邀請"
       redirect_back(fallback_location: root_path)
     else
-      # render json: @friend_request.errors, status: :unprocessable_entity
       flash[:alert] = @friend_request.errors.full_messages.to_sentence
       redirect_back(fallback_location: root_path)
     end

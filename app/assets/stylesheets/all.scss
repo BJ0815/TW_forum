@@ -32,7 +32,17 @@ th {
 }
 
 .edit-btn {
+  position: absolute;
+  bottom: 1em;
+  right: 3em;
+}
+
+.edit-btn2 {
   text-align: right;
+}
+
+.my-comment {
+  height: 140px;
 }
 
 #new-session-page,

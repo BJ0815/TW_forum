@@ -26,7 +26,7 @@
             <%= image_tag @post.photo ,class: "post-img" if @post.photo %>
           </figure>
           <p><%= @post.description %></p>
-          <div class="edit-btn">
+          <div class="edit-btn2">
             <%= link_to fa_icon("pencil"), edit_post_path(@post), class: "btn btn-custom" if current_user == @post.user %>
             <%= link_to fa_icon("times"), post_path(@post), method: :delete, class: "btn btn-danger" if current_user == @post.user || current_user.role == "admin" %>
           </div>
