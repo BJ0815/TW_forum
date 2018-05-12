@@ -82,7 +82,8 @@ class PostsController < ApplicationController
   def destroy
     if current_user == @post.user || current_user.admin?
       @post.destroy
-      redirect_to root_path, :notice => "成功刪除post"
+      flash[:notice] = "成功刪除post"
+      redirect_back(fallback_location: root_path)
     end
   end
 
