@@ -17,6 +17,12 @@ th {
 .form-control {
   color: #fff;
 }
+
+.post-img {
+  width: 350px;
+  max-height: 350px;
+}
+
 .mr-user {
   margin-right: 1em;
 }
@@ -26,9 +32,7 @@ th {
 }
 
 .edit-btn {
-  position: absolute;
-  bottom: 1em;
-  right: 3em;
+  text-align: right;
 }
 
 #new-session-page,
@@ -174,6 +178,9 @@ a:hover {
   border-radius: 20px;
 }
 
+.reply-edit {
+  line-height: 1.5;
+}
 
 // end
 

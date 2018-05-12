@@ -23,7 +23,7 @@
         </div>
         <div class="col-md-9">
           <figure>
-            <%= image_tag @post.photo if @post.photo %>
+            <%= image_tag @post.photo ,class: "post-img" if @post.photo %>
           </figure>
           <p><%= @post.description %></p>
           <div class="edit-btn">
@@ -53,7 +53,7 @@
 
               <div class="edit-btn">
                 <% if current_user == reply.user %>
-                  <span class="reply-edit btn btn-custom fas fa-pencil"></span>
+                  <span class="reply-edit btn btn-custom fa fa-pencil"></span>
                   <%= link_to fa_icon("times"), post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
                 <% end %>
               </div>

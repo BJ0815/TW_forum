@@ -12,7 +12,7 @@
         <div class="form-group">
           <%= f.file_field :avatar %>
           <%= f.hidden_field :avatar_cache %>
-          <%= image_tag @user.avatar if @user.avatar? %>
+          <%= image_tag @user.avatar ,class: "post-img" if @user.avatar? %>
         </div>
         <div class="form-group">
           <%= f.submit "Submit", class: "btn btn-custom" %>

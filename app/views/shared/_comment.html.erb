@@ -13,7 +13,7 @@
       <div class="col-md-4 mt-auto">
         <% if current_user == reply.user %>
           <%#= link_to fa_icon("pencil"), edit_post_reply_path(reply.post, reply), class: "btn btn-custom" %>
-          <span class="reply-edit btn btn-custom fas fa-pencil"></span>
+          <i class="reply-edit fa fa-pencil btn btn-custom"></i>
           <%= link_to fa_icon("times"), post_reply_path(reply.post, reply), method: :delete, class: "btn btn-danger" %>
         <% end %>
       </div>
