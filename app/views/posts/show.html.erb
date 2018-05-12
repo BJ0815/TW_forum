@@ -34,9 +34,9 @@
       </div>
     </div>
     
-    <div class="reply-block p-3">
+    <div id="reply-list" class="reply-block p-3">
       <% @replies.each do |reply| %>
-      <div class="reply-content p-3">
+      <div id="<%= reply.id %>" class="reply-content p-3">
         <div class="row">
           <div class="col-md-3 text-center user-info" data-link="<%= user_path(reply.user) %>">
             <figure>
@@ -46,15 +46,17 @@
             <%= render "shared/add_friend", object: reply %>
           </div>
           <div class="col-md-9">
-            <p><%= reply.comment %></p>
+            <div id="reply-<%= reply.id%>">
+              <div class="my-comment">
+                <p><%= reply.comment %></p>
+              </div>
 
-            <%= link_to "add friend", friend_requests_path(friend_id: reply.user), method: :post unless current_user == reply.user || !current_user.friends.include?(reply.user) %>
-
-            <div class="edit-btn">
-              <% if current_user == reply.user %>
-                <%= link_to fa_icon("pencil"), edit_post_reply_path(@post, reply), class: "btn btn-dark" %>
-                <%= link_to fa_icon("times"), post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
-              <% end %>
+              <div class="edit-btn">
+                <% if current_user == reply.user %>
+                  <span class="reply-edit btn btn-custom fas fa-pencil"></span>
+                  <%= link_to fa_icon("times"), post_reply_path(@post, reply), method: :delete, class: "btn btn-danger" %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -63,7 +65,7 @@
       <%= paginate @replies %>
     </div>
     
-    <div class="reply-form p-5">
+    <div id="reply-form-block" class="reply-form p-5">
       <%= form_for [@post, @reply] do |f| %>
         <div class="form-group">
           <%= f.text_area :comment,placeholder: "add comment", resize: false, class: "form-control" %>
@@ -77,3 +79,55 @@
 </section>
 
 
+<script>
+  $("#reply-list").on('click', '.reply-edit', function(event){
+    var id = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+    var postId = <%= @post.id %>;
+    $.ajax({
+      url: "/posts/" + postId + "/replies/" + id + "/edit",
+      method: "GET",
+      dataType: "json",
+      success: function(data){
+        // 顯示編輯框
+        console.log(data["id"]);
+        var comment = $("#" + data["id"]).find(".my-comment");
+        comment.html($("#edit-template").html());
+        comment.find(".update-comment").val(data["comment"]);
+        comment.on('click', '.update-button', function(updateEvent){
+          // 更新comment
+          updateEvent.preventDefault();
+          $.ajax({
+            url: "/posts/" + postId + "/replies/" + data["id"],
+            method: "PATCH",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            dataType: "json",
+            data: {
+              reply: {
+                comment: comment.find(".update-comment").val()
+              }
+            },
+            success: function(updateData){
+              // 更新成功
+              console.log("更新成功：" + data["id"]);
+              var comment = $("#" + data["id"]).find(".my-comment");
+              comment.html('<p class="comment"></p>');
+              comment.find('p').html(updateData["comment"]);
+              toastr.success("成功更新留言");
+            }
+          });
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/template" id="edit-template">
+  <form>
+    <div class="form-group">
+      <textarea resize="false" class="form-control update-comment"></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-custom update-button">Update</button>
+    </div>
+  </form>
+</script>

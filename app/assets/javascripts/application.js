@@ -41,4 +41,6 @@ $(document).on("turbolinks:load",function(){
 
     selectorHeaders: 'thead th.sortable'
   } );
+
+
 });

@@ -41,6 +41,7 @@
           <%= link_to "New Post", new_post_path, class: "btn btn-primary"%>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <!-- reply -->
           <%= render "shared/comment", object: @user %>
         </div>
         <div class="tab-pane fade" id="collect" role="tabpanel" aria-labelledby="collect-tab">

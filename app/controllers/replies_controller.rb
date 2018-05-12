@@ -20,13 +20,16 @@ class RepliesController < ApplicationController
     @reply = current_user.replies.find_by(id: params[:id])
     @post = Post.find(params[:post_id])
     @replies = @post.replies.all.page(params[:page]).per(20)
-    render 'posts/show.html.erb'
+    
+    render :json => { :id => @reply.id, :comment => @reply.comment }
   end
 
   def update
     # 更新留言（並倒回同一頁）
-    current_user.replies.find_by(id: params[:id]).update(reply_params)
-    redirect_to post_path(params[:post_id]), :notice => "成功更新留言"
+    @reply = current_user.replies.find_by(id: params[:id])
+    @reply.update(reply_params)
+ 
+    render :json => { :id => @reply.id, :comment => @reply.comment }
   end
 
 

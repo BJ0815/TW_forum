@@ -1,18 +1,78 @@
-<div class="commet-zone">
+<div id="reply-list" class="commet-zone">
   <% object.replies.all.each do |reply| %>
-  <div class="reply-info">
+  <div id="<%= reply.id %>" class="reply-info">
     <h4><%= reply.post.title %></h4>
-    <div class="row">
+    <div id="<%= reply.post.id %>" class="row">
       <div class="col-md-8 block">
-        <p><%= reply.comment %></p>
+        <div id="reply-<%= reply.id %>">
+          <div class="my-comment">
+            <p><%= reply.comment %></p>
+          </div>
+        </div>
       </div>
       <div class="col-md-4 mt-auto">
         <% if current_user == reply.user %>
-          <%= link_to fa_icon("pencil"), edit_post_reply_path(reply.post, reply), class: "btn btn-custom" %></td>
-          <%= link_to fa_icon("times"), post_reply_path(reply.post, reply), method: :delete, class: "btn btn-danger" %></td>
+          <%#= link_to fa_icon("pencil"), edit_post_reply_path(reply.post, reply), class: "btn btn-custom" %>
+          <span class="reply-edit btn btn-custom fas fa-pencil"></span>
+          <%= link_to fa_icon("times"), post_reply_path(reply.post, reply), method: :delete, class: "btn btn-danger" %>
         <% end %>
       </div>
     </div>
   </div>
   <% end %>
 </div>
+
+<script>
+  $("#reply-list").on('click', '.reply-edit', function(event){
+    var id = event.target.parentNode.parentNode.parentNode.id;
+    var postId = event.target.parentNode.parentNode.id;
+    console.log(id);
+    console.log(postId);
+    $.ajax({
+      url: "/posts/" + postId + "/replies/" + id + "/edit",
+      method: "GET",
+      dataType: "json",
+      success: function(data){
+        // 顯示編輯框
+        console.log(data["id"]);
+        var comment = $("#" + data["id"]).find(".my-comment");
+        comment.html($("#edit-template").html());
+        comment.find(".update-comment").val(data["comment"]);
+        comment.on('click', '.update-button', function(updateEvent){
+          // 更新comment
+          updateEvent.preventDefault();
+          $.ajax({
+            url: "/posts/" + postId + "/replies/" + data["id"],
+            method: "PATCH",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            dataType: "json",
+            data: {
+              reply: {
+                comment: comment.find(".update-comment").val()
+              }
+            },
+            success: function(updateData){
+              // 更新成功
+              console.log("更新成功：" + data["id"]);
+              var comment = $("#" + data["id"]).find(".my-comment");
+              comment.html('<p class="comment"></p>');
+              comment.find('p').html(updateData["comment"]);
+              toastr.success("成功更新留言");
+            }
+          });
+        });
+      }
+    });
+  });
+</script>
+
+<script type="text/template" id="edit-template">
+  <form>
+    <div class="form-group">
+      <textarea resize="false" class="form-control update-comment"></textarea>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-custom update-button">Update</button>
+    </div>
+  </form>
+</script>
