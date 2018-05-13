@@ -53,8 +53,13 @@ class PostsController < ApplicationController
   end
 
   def show
-    @reply = Reply.new
-    @replies = @post.replies.all.page(params[:page]).per(20)
+    if @post.can_watch(current_user)
+      @reply = Reply.new
+      @replies = @post.replies.all.page(params[:page]).per(20)
+    else
+      flash[:alert] = "Not Allow"
+      redirect_to root_path
+    end
   end
 
   def edit

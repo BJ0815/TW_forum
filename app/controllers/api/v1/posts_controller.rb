@@ -1,8 +1,9 @@
 class Api::V1::PostsController < ApiController
+  before_action :authenticate_user!, except: :index
   before_action :set_post, only: [:show, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.article_role(current_user)
     render json: {
       data: @posts.map do |post|
         {
@@ -18,13 +19,22 @@ class Api::V1::PostsController < ApiController
 
   def show
     if @post
-      render json: {
-        title: @post.title,
-        description: @post.description,
-        photo: @post.photo,
-        replies_count: @post.replies_count,
-        views_count: @post.views_count
-      }
+      if @post.can_watch(current_user)
+        render json: {
+          data: {
+            title: @post.title,
+            description: @post.description,
+            photo: @post.photo,
+            replies_count: @post.replies_count,
+            views_count: @post.views_count
+          }
+        }
+      else
+        render json: {
+          message: "Not Allow",
+          status: 400
+        }
+      end
     else
       render json: {
         message: "Can't find the post",
@@ -34,7 +44,7 @@ class Api::V1::PostsController < ApiController
   end 
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       render json: {
         message: "Post created successfully!",
@@ -49,15 +59,17 @@ class Api::V1::PostsController < ApiController
 
   def update
     @post = Post.find_by(id: params[:id])
-    if @post.update(post_params)
-      render json: {
-        message: "Post updated successfully!",
-        result: @post
-      }
-    else
-      render json: {
-        message: @post.errors
-      }
+    if @post.user == current_user
+      if @post.update(post_params)
+        render json: {
+          message: "Post updated successfully!",
+          result: @post
+        }
+      else
+        render json: {
+          message: @post.errors
+        }
+      end
     end
   end
 

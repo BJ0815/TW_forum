@@ -21,4 +21,19 @@ class Post < ApplicationRecord
       where(article_role: "all").publics
     end
   end
+
+  def can_watch(other)
+    case self.article_role
+    when 'friend'
+      if user.friends.where(id: other.id).exists? 
+        return true
+      else
+        return false
+      end
+    when 'myself'
+      return user == other ? true : false
+    when 'all'
+      return true
+    end
+  end
 end

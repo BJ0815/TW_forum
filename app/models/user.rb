@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, AvatarUploader
 
+  before_create :generate_authentication_token
+
   has_many :posts, dependent: :destroy
   has_many :public_posts, ->{ where(state: "public") },class_name: "Post"
   has_many :draft_posts, ->{ where(state: "draft") },class_name: "Post"
@@ -25,6 +27,10 @@ class User < ApplicationRecord
   
   def admin?
     self.role == "admin"
+  end
+
+  def generate_authentication_token
+    self.authentication_token = Devise.friendly_token
   end
 
 end
