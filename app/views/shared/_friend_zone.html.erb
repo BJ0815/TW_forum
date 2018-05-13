@@ -3,7 +3,7 @@
   <div class="row">
     <!-- 等待回覆的好友邀請區 -->
     <% object1.each do |outcoming| %>
-    <div id="outcoming-<%= outcoming.id %>" class="text-center mr-user" data-link="<%= user_path(outcoming) %>">
+    <div id="outcoming-<%= outcoming.id %>" class="text-center mr-user user-info" data-link="<%= user_path(outcoming) %>">
       <figure>
         <%= image_tag outcoming.avatar, size: "120" %>
       </figure>
