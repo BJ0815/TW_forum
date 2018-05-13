@@ -29,6 +29,7 @@ namespace :dev do
           description: FFaker::Lorem::sentence(50),
           state: 'public',
           article_role: role.sample,
+          views_count: rand(1..100),
           )
       end
     end

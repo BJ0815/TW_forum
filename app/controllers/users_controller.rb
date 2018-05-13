@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   end
 
   def edit
+    unless current_user == @user
+      redirect_to root_path, notice: "Not Allow"
+    end
   end
 
   def update
